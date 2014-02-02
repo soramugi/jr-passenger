@@ -1,6 +1,10 @@
-JR Passenger
+JR Passenger [![Build Status](https://travis-ci.org/soramugi/jr-passenger.png?branch=master)](https://travis-ci.org/soramugi/jr-passenger)
 ===
 
-http://www.jreast.co.jp/passenger/
+<http://jrpassenger.soramugi.net>
 
-http://soramugi.github.io/jr-passenger/
+
+JRが公開している乗車人員表のデータで遊ぶ
+
+<http://www.jreast.co.jp/passenger/>
+
