@@ -14,4 +14,4 @@ after_success:
   - git init
   - git add --all
   - git commit -m "Update from Travis CI"
-  - 'git push --quiet https://$GITHUB_TOKEN@github.com/soramugi/jr-passenger.git HEAD:gh-pages -f 2> /dev/null'
+  - 'git push --quiet https://$GH_TOKEN@github.com/soramugi/jr-passenger.git HEAD:gh-pages -f 2> /dev/null'
