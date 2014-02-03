@@ -25,12 +25,14 @@ namespace :csv do
       doc = Nokogiri::HTML.parse(open(url))
       trs = []
       doc.xpath('//tr[td[@class="text-m" and @bgcolor="#ffffff"]]').each do |tr|
-        tds = []
+        tds = {}
         tr.xpath('td').each_with_index do |td,count|
+          tds[:rank] = td.text if 0 == count
+          tds[:city] = td.text if 1 == count
           if url == 'http://www.jreast.co.jp/passenger/'
-            tds << td.text if [0,1,4].include?(count)
+            tds[:total] = td.text if 4 == count
           else
-            tds << td.text if [0,1,2].include?(count)
+            tds[:total] = td.text if 2 == count
           end
         end
         trs << tds
