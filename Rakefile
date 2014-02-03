@@ -1,5 +1,5 @@
-namespace :csv do
-  desc "乗車人員のcsvファイル作成"
+namespace :json do
+  desc "乗車人員のjsonファイル作成"
   task :create do
     require 'nokogiri'
     require 'open-uri'
