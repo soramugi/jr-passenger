@@ -28,7 +28,7 @@ namespace :json do
         tds = {}
         tr.xpath('td').each_with_index do |td,count|
           tds[:rank] = td.text if 0 == count
-          tds[:city] = td.text if 1 == count
+          tds[:city] = td.text.strip if 1 == count
           if url == 'http://www.jreast.co.jp/passenger/'
             tds[:total] = td.text.delete(',').to_i if 4 == count
           else
