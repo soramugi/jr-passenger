@@ -13,35 +13,71 @@
 
 <div id="green">
   <div class="container">
-    <div class="row">
-      <ul id="tabes" class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#2012">2012</a></li>
-        <li><a data-toggle="tab" href="#2011">2011</a></li>
-        <li><a data-toggle="tab" href="#2010">2010</a></li>
-        <li><a data-toggle="tab" href="#2009">2009</a></li>
-        <li><a data-toggle="tab" href="#2008">2008</a></li>
-        <li><a data-toggle="tab" href="#2007">2007</a></li>
-        <li><a data-toggle="tab" href="#2006">2006</a></li>
-        <li><a data-toggle="tab" href="#2005">2005</a></li>
-        <li><a data-toggle="tab" href="#2004">2004</a></li>
-        <li><a data-toggle="tab" href="#2003">2003</a></li>
-        <li><a data-toggle="tab" href="#2002">2002</a></li>
-        <li><a data-toggle="tab" href="#2001">2001</a></li>
-        <li><a data-toggle="tab" href="#2000">2000</a></li>
-        <li><a data-toggle="tab" href="#1999">1999</a></li>
-      </ul>
-      <table class="table table-bordered table-hover table-scroll">
-        <thead> <tr> <th>Rank</th> <th>City</th> <th>Total</th> </tr> </thead>
-        <tbody class="tbody-list"></tbody>
-      </table>
+    <div class="row centered">
+      <h3>年間乗車人員のグラフ表示</h3>
     </div><!-- /row -->
   </div> <!-- /container -->
 </div><!-- /green -->
 
+<div class="container">
+  <div class="row">
+    <p>kajitu</p>
+  </div><!-- /row -->
+</div> <!-- /container -->
+
+<div id="green">
+  <div class="container">
+    <div class="row centered col-lg-8 col-lg-offset-3">
+      <div class="col-lg-4">
+        <ul id="tabes" class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#2012">2012</a></li>
+          <li><a data-toggle="tab" href="#2011">2011</a></li>
+          <li><a data-toggle="tab" href="#2010">2010</a></li>
+          <li><a data-toggle="tab" href="#2009">2009</a></li>
+          <li><a data-toggle="tab" href="#2008">2008</a></li>
+          <li><a data-toggle="tab" href="#2007">2007</a></li>
+          <li><a data-toggle="tab" href="#2006">2006</a></li>
+          <li><a data-toggle="tab" href="#2005">2005</a></li>
+          <li><a data-toggle="tab" href="#2004">2004</a></li>
+          <li><a data-toggle="tab" href="#2003">2003</a></li>
+          <li><a data-toggle="tab" href="#2002">2002</a></li>
+          <li><a data-toggle="tab" href="#2001">2001</a></li>
+          <li><a data-toggle="tab" href="#2000">2000</a></li>
+          <li><a data-toggle="tab" href="#1999">1999</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <table class="table table-bordered table-hover table-scroll">
+          <tbody class="tbody-list"></tbody>
+        </table>
+      </div>
+    </div><!-- /row centered -->
+  </div> <!-- /container -->
+</div><!-- /green -->
+
+<section id="contact"></section>
+<div id="social">
+  <div class="container">
+    <div class="row centered">
+      <div class="col-lg-8 col-lg-offset-2">
+        <a href="https://twitter.com/soramugi"><i class="fa fa-twitter"></i></a>
+      </div>
+    </div>
+  </div><!-- /container -->
+</div><!-- /social -->
+
+<div id="f">
+  <div class="container">
+    <div class="row">
+      <p>Crafted with <i class="fa fa-heart"></i> by @soramugi.</p>
+    </div>
+  </div>
+</div>
+
+
 <script>
   $(function() {
     $(document).on('click', 'a[data-toggle="tab"]', function(e) {
-      $(".tbody-list").html('');
       var year;
       year = e.target.href.split("#")[1];
       list(year);
@@ -53,6 +89,7 @@
     function list(year) {
       $.getJSON("javascripts/json/" + year + ".json" , function(data) {
         var listObj = $(".tbody-list");
+        listObj.html('<tr> <th>Rank</th> <th>City</th> <th>Total</th> </tr>');
         var len = data.length;
 
         for(var i = 0; i < len; i++) {
