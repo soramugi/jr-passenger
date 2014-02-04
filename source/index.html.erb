@@ -48,12 +48,14 @@
         $.ajaxSetup({async: false});
         $.getJSON("javascripts/json/" + years[i] + ".json" , function(data) {
           var len = data.length;
+          var totalData = 0;
 
           for(var i = 0; i < len; i++) {
             if (data[i].city == city) {
-              totalDatas.push(data[i].total);
+              totalData = data[i].total;
             }
           }
+          totalDatas.push(totalData);
         });
         $.ajaxSetup({async: true});
       }
