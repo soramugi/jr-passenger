@@ -21,7 +21,42 @@
 
 <div class="container">
   <div class="row">
-    <p>kajitu</p>
+    <h3>新宿</h3>
+    <canvas id="myChart" height="400"></canvas>
+    <script>
+      var years = [ 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, ];
+
+      var totalDatas = [];
+      var ylen = years.length;
+      for(var i = 0; i < ylen; i++) {
+        $.ajaxSetup({async: false});
+        $.getJSON("javascripts/json/" + years[i] + ".json" , function(data) {
+          var len = data.length;
+
+          for(var i = 0; i < len; i++) {
+            if (data[i].city == '新宿') {
+              totalDatas.push(data[i].total);
+            }
+          }
+        });
+        $.ajaxSetup({async: true});
+      }
+      console.log(totalDatas);
+
+      var data = {
+        labels : years,
+        datasets : [ {
+          fillColor : "rgba(151,187,205,0.5)",
+      strokeColor : "rgba(151,187,205,1)",
+      pointColor : "rgba(151,187,205,1)",
+      pointStrokeColor : "#fff",
+      data : totalDatas } ]
+      };
+//Get context with jQuery - using jQuery's .get() method.
+var ctx = $("#myChart").get(0).getContext("2d");
+//This will get the first returned node in the jQuery collection.
+var myNewChart = new Chart(ctx).Line(data);
+    </script>
   </div><!-- /row -->
 </div> <!-- /container -->
 
