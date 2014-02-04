@@ -226,3 +226,7 @@ hr {
   overflow:scroll;
   height:400px;
 }
+
+#wrapper {
+  width: 600px;
+}

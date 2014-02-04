@@ -4,16 +4,16 @@
 <div id="hello">
   <div class="container">
     <div class="row">
-      <div class="centered">
+      <div class="">
         <h1>JR東日本 乗車人員グラフ</h1>
-      </div><!-- /centered -->
+      </div><!-- / -->
     </div><!-- /row -->
   </div> <!-- /container -->
 </div><!-- /hello -->
 
 <div id="green">
   <div class="container">
-    <div class="row centered">
+    <div class="row">
       <h3>年間乗車人員のグラフ表示</h3>
     </div><!-- /row -->
   </div> <!-- /container -->
@@ -21,10 +21,26 @@
 
 <div class="container">
   <div class="row">
-    <h3>新宿</h3>
-    <canvas id="myChart" height="400"></canvas>
+    <div class="col-lg-12">
+      <h3 class="graph-title">新宿</h3>
+      <canvas id="graph" width="800" height="400"></canvas>
+    </div>
     <script>
-      var years = [ 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, ];
+      $(function() {
+        $(document).on('click', 'tr[data-href]', function(e) {
+          var city;
+          city = $(e.target).closest('tr').data('href').split("#")[1];
+          $(".graph-title").html(city);
+          renderingGraph(city);
+          return false;
+        });
+
+        renderingGraph("新宿");
+
+      });
+
+    function renderingGraph(city) {
+      var years = [ 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, ];
 
       var totalDatas = [];
       var ylen = years.length;
@@ -34,14 +50,13 @@
           var len = data.length;
 
           for(var i = 0; i < len; i++) {
-            if (data[i].city == '新宿') {
+            if (data[i].city == city) {
               totalDatas.push(data[i].total);
             }
           }
         });
         $.ajaxSetup({async: true});
       }
-      console.log(totalDatas);
 
       var data = {
         labels : years,
@@ -52,18 +67,17 @@
       pointStrokeColor : "#fff",
       data : totalDatas } ]
       };
-//Get context with jQuery - using jQuery's .get() method.
-var ctx = $("#myChart").get(0).getContext("2d");
-//This will get the first returned node in the jQuery collection.
-var myNewChart = new Chart(ctx).Line(data);
+      var ctx = $("#graph").get(0).getContext("2d");
+      new Chart(ctx).Line(data);
+    }
     </script>
   </div><!-- /row -->
 </div> <!-- /container -->
 
 <div id="green">
   <div class="container">
-    <div class="row centered col-lg-8 col-lg-offset-3">
-      <div class="col-lg-4">
+    <div class="row col-lg-8 col-lg-offset-3">
+      <div class="col-xs-4">
         <ul id="tabes" class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#2012">2012</a></li>
           <li><a data-toggle="tab" href="#2011">2011</a></li>
@@ -81,19 +95,19 @@ var myNewChart = new Chart(ctx).Line(data);
           <li><a data-toggle="tab" href="#1999">1999</a></li>
         </ul>
       </div>
-      <div class="col-lg-4">
+      <div class="col-xs-4">
         <table class="table table-bordered table-hover table-scroll">
           <tbody class="tbody-list"></tbody>
         </table>
       </div>
-    </div><!-- /row centered -->
+    </div><!-- /row -->
   </div> <!-- /container -->
 </div><!-- /green -->
 
 <section id="contact"></section>
 <div id="social">
   <div class="container">
-    <div class="row centered">
+    <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
         <a href="https://twitter.com/soramugi"><i class="fa fa-twitter"></i></a>
       </div>
@@ -119,8 +133,10 @@ var myNewChart = new Chart(ctx).Line(data);
       return false;
     });
 
+    // ブラウザ読み込み時に実行
     list("2012");
 
+    // jsonから年別のデータ取得、.tbody-listに出力
     function list(year) {
       $.getJSON("javascripts/json/" + year + ".json" , function(data) {
         var listObj = $(".tbody-list");
@@ -129,7 +145,7 @@ var myNewChart = new Chart(ctx).Line(data);
 
         for(var i = 0; i < len; i++) {
           listObj.append(
-            $("<tr>")
+            $("<tr data-href='#"+data[i].city+"'>")
               .append($("<td>").text(data[i].rank))
             .append($("<td>").text(data[i].city))
             .append($("<td>").text(data[i].total))
@@ -137,5 +153,6 @@ var myNewChart = new Chart(ctx).Line(data);
         }
       });
     }
+
   });
 </script>
