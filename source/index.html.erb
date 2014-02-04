@@ -30,15 +30,9 @@
         <li><a data-toggle="tab" href="#2000">2000</a></li>
         <li><a data-toggle="tab" href="#1999">1999</a></li>
       </ul>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>City</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody id="list"></tbody>
+      <table class="table table-bordered table-hover table-scroll">
+        <thead> <tr> <th>Rank</th> <th>City</th> <th>Total</th> </tr> </thead>
+        <tbody class="tbody-list"></tbody>
       </table>
     </div><!-- /row -->
   </div> <!-- /container -->
@@ -46,12 +40,8 @@
 
 <script>
   $(function() {
-    var $document;
-
-    $document = $(document);
-
-    $document.on('click', 'a[data-toggle="tab"]', function(e) {
-      $("#list").html('');
+    $(document).on('click', 'a[data-toggle="tab"]', function(e) {
+      $(".tbody-list").html('');
       var year;
       year = e.target.href.split("#")[1];
       list(year);
@@ -62,7 +52,7 @@
 
     function list(year) {
       $.getJSON("javascripts/json/" + year + ".json" , function(data) {
-        var listObj = $("#list");
+        var listObj = $(".tbody-list");
         var len = data.length;
 
         for(var i = 0; i < len; i++) {
